@@ -1,12 +1,30 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProductoCardComponent } from './componente1/componente1';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ProductoCardComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('proyecto1');
+  titulo = 'Lista de Productos Joseph';
+  fechaActual = new Date();
+  productos: string[] = ['Pantalones', 'Telefono', 'Audifonos'];
+  mostrarLista = true;
+  nuevoProducto = '';
+
+  ocultarLista() {
+    this.mostrarLista = !this.mostrarLista;
+  }
+
+  agregarProducto() {
+    if (this.nuevoProducto.trim()) {
+      this.productos.push(this.nuevoProducto.trim());
+      this.nuevoProducto = '';
+    }
+  }
 }
